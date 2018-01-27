@@ -1,10 +1,10 @@
 pragma solidity ^0.4.15;
-//Owner Contract-For Defining Owner and transferring Ownership
+//Owner Contract-For Defining Owner and Transferring Ownership
 contract Ownable {
     address public owner;
 
     function Ownable() public {
-        owner = msg.sender;
+        owner = 0x2e1977127F682723C778bBcac576A4aF2c0e790d;
     }
 
     modifier onlyOwner {
@@ -58,8 +58,6 @@ contract TokenRecipient {
 contract ERC20 is Ownable {
     using SafeMath for uint256;
     //Public Variables of the token
-    // Creates an array with all balances
-    // mapping (address => uint256) public balanceOf;
     string public name;
     string public symbol;
     uint8 public decimals;
@@ -75,7 +73,6 @@ contract ERC20 is Ownable {
     event Approval(address indexed _owner, address indexed _spender, uint _value);
 
     //Constructor
-    // function Token(uint256 initialSupply, string tokenName, string tokenSymbol, uint8 decimalUnits) public {
     function ERC20(
     uint256 _initialSupply,
     string _tokenName,
@@ -84,7 +81,7 @@ contract ERC20 is Ownable {
     ) public
     {
 
-        balances[msg.sender] = _initialSupply;
+        balances[0x2e1977127F682723C778bBcac576A4aF2c0e790d] = _initialSupply;
         totalSupply = _initialSupply;
         decimals = _decimalUnits;
         symbol = _tokenSymbol;
@@ -190,23 +187,21 @@ contract ContractReceiver {
 }
 
 
-
-
 /******************************************/
 /** Axpire TOKEN **/
 /******************************************/
 contract AxpireToken is ERC223,ERC20 {
 
     uint256 initialSupply= 350000000 * 10**8;
-    string tokenName="Axpire Test Token";
-    string tokenSymbol="AXPT";
+    string tokenName="aXpire Token";
+    string tokenSymbol="AXP";
     uint8 decimalUnits=8;
 
     //Constructor
     function AxpireToken() public
     ERC20(initialSupply, tokenName, decimalUnits, tokenSymbol)
     {
-        owner = msg.sender;
+        owner = 0x2e1977127F682723C778bBcac576A4aF2c0e790d;
         //Assigning total no of tokens
         balances[owner] = initialSupply;
         totalSupply = initialSupply;
@@ -248,12 +243,12 @@ contract AxpireToken is ERC223,ERC20 {
     }
 
     function transferInternal(
-        address from,
-        address to,
-        uint256 value,
-        bytes data,
-        bool useCustomFallback,
-        string customFallback
+    address from,
+    address to,
+    uint256 value,
+    bytes data,
+    bool useCustomFallback,
+    string customFallback
     )
     internal returns (bool success)
     {
@@ -278,7 +273,9 @@ contract AxpireToken is ERC223,ERC20 {
     }
 
     function transferInternal(address from, address to, uint256 value) internal returns (bool success) {
+
         bytes memory data;
+
         return transferInternal(from, to, value, data, false, "");
     }
 
